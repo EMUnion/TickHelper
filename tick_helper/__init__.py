@@ -56,7 +56,7 @@ def status(source):
         source.reply('§b[TickHelper] §6时间正常流动，没有受到替身技能的影响~')
 
 def on_load(server, prev):
-    server.register_help_message('!!msr', 'TickHelper 帮助')
+    server.register_help_message('!!tick', 'TickHelper 帮助')
     builder = SimpleCommandBuilder()
 
     builder.command('!!tick', help_msg)
