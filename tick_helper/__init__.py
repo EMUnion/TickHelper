@@ -28,7 +28,7 @@ help = '''{:=^50}
 def freeze(source: ServerInterface):
     global_server.execute('/tick freeze')
     global global_freeze
-    if global_freeze:
+    if not global_freeze:
         global_server.say('§b[TickHelper] §6スタープラチナ·The World！')
     else:
         global_server.say('§b[TickHelper] §6時は流れ続ける！')
@@ -69,4 +69,5 @@ def on_load(server, prev):
 
 def on_unload(server):
     if global_freeze:
+        server.say('§b[TickHelper] §6这个世界的替身突然间消失了，所有受到替身影响的状况都不翼而飞了~')
         freeze(server)
