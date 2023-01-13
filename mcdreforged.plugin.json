@@ -1,0 +1,16 @@
+
+{
+    "id": "tick_helper",
+    "version": "1.0.0",
+    "name": "TickHelper",
+    "description": {
+      "en_us": "A plugin for users to use /tick freeze and /tick health command when carpet.tickCommand is set to ops",
+      "zh_cn": "让玩家可以在carpet的tickCommand设置为ops时使用/tick freeze和/tick health指令的插件"
+    },
+    "dependencies": {
+      "mcdreforged": ">=2.6.0"
+    },
+    "resources": [],
+    "author": "GamerNoTitle",
+    "link": "https://github.com/EMUnion/TickHelper"
+  }

@@ -1,0 +1,65 @@
+from mcdreforged.api.command import SimpleCommandBuilder
+from mcdreforged.api.rcon import RconConnection as rcon
+from mcdreforged.mcdr_server import ServerInterface
+
+
+PLUGIN_METADATA = {
+    'id': 'tick_helper',
+    'version': '1.0.0',
+    'name': 'TickHelper',
+    'description': 'A plugin for users to use /tick freeze and /tick health command when carpet.tickCommand is set to ops',
+    'author': 'GamerNoTitle',
+    'link': 'https://github.com/EMUnion/TickHelper',
+    'dependencies': {
+        'mcdreforged': '>=2.6.0'
+    }
+}
+
+global_freeze = False
+global_server = ServerInterface.get_instance().as_plugin_server_interface()
+help = '''{:=^50}
+§b!!tick help §r- §6显示帮助信息
+§b!!tick freeze §r- §6停止tick流动
+§b!!tick health §r- §6查看tick占用情况（目前无效，正在找解决方法）
+{:=^50}'''.format(' §b[TickHelper] 帮助信息 §r', ' §b[TickHelper] Version: {} §r'.format(PLUGIN_METADATA['version']))
+# r = rcon('127.0.0.1', 28584, 'EMUnion@EFS&MTS')
+
+def freeze(source: ServerInterface):
+    global_server.execute('/tick freeze')
+    global global_freeze
+    if global_freeze:
+        global_server.say('§b[TickHelper] §6已经停止tick流动！')
+    else:
+        global_server.say('§b[TickHelper] §6已经启动tick流动！')
+    global_freeze = not global_freeze
+
+
+def health(source: ServerInterface):
+    # try:
+    #     r.connect()
+    #     text = r.send_command('tick health')
+    #     r.disconnect()
+    # except Exception as e:
+    #     text = f'§b[TickHelper] §6无法查询tick health，因为发生了 {e} 错误！'
+    text = '§b[TickHelper] §6无法查询tick health，因为发生这个功能还没有恰当的解决方案！'
+    source.reply(text)
+
+
+def help_msg(source):
+    source.reply(help)
+
+
+def on_load(server, prev):
+    server.register_help_message('!!msr', 'TickHelper 帮助')
+    builder = SimpleCommandBuilder()
+
+    builder.command('!!tick', help_msg)
+    builder.command('!!tick freeze', freeze)
+    builder.command('!!tick health', health)
+
+    builder.register(server)
+
+
+def on_unload(server):
+    if global_freeze:
+        freeze(server)
