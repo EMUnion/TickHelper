@@ -20,6 +20,7 @@ global_server = ServerInterface.get_instance().as_plugin_server_interface()
 help = '''{:=^50}
 §b!!tick help §r- §6显示帮助信息
 §b!!tick freeze §r- §6停止tick流动
+§b!!tick status §r- §6查看tick状态
 §b!!tick health §r- §6查看tick占用情况（目前无效，正在找解决方法）
 {:=^50}'''.format(' §b[TickHelper] 帮助信息 §r', ' §b[TickHelper] Version: {} §r'.format(PLUGIN_METADATA['version']))
 # r = rcon('127.0.0.1', 28584, 'EMUnion@EFS&MTS')
@@ -48,6 +49,11 @@ def health(source: ServerInterface):
 def help_msg(source):
     source.reply(help)
 
+def status(source):
+    if global_freeze:
+        source.reply('§b[TickHelper] §6这个世界正在白金之星的影响之下！')
+    else:
+        source.reply('§b[TickHelper] §6时间正常流动，没有受到替身技能的影响~')
 
 def on_load(server, prev):
     server.register_help_message('!!msr', 'TickHelper 帮助')
@@ -56,6 +62,7 @@ def on_load(server, prev):
     builder.command('!!tick', help_msg)
     builder.command('!!tick freeze', freeze)
     builder.command('!!tick health', health)
+    builder.command('!!tick status', status)
 
     builder.register(server)
 
