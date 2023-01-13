@@ -28,9 +28,9 @@ def freeze(source: ServerInterface):
     global_server.execute('/tick freeze')
     global global_freeze
     if global_freeze:
-        global_server.say('§b[TickHelper] §6已经停止tick流动！')
+        global_server.say('§b[TickHelper] §6スタープラチナ·The World！')
     else:
-        global_server.say('§b[TickHelper] §6已经启动tick流动！')
+        global_server.say('§b[TickHelper] §6時は流れ続ける！')
     global_freeze = not global_freeze
 
 
